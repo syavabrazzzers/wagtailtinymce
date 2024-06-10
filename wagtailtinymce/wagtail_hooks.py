@@ -92,7 +92,9 @@ def images_richtexteditor_js():
         """,
         to_js_primitive(static('wagtailtinymce/js/tinymce-plugins/wagtailimage.js')),
         to_js_primitive(translation.to_locale(translation.get_language())),
-        to_js_primitive(reverse('wagtailimages:chooser_select_format', args=['00000000']))
+        
+        # idk how it`s work, cause change it if you know
+        to_js_primitive(reverse('wagtailimages:image_usage', args=['00000000']))
     )
 
 
