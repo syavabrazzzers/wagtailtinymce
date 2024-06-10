@@ -29,10 +29,9 @@ import json
 
 from django.forms import widgets
 from django.utils import translation
+from wagtail.admin.panels import FieldPanel
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
-from wagtail.wagtailcore.rich_text import DbWhitelister
-from wagtail.wagtailcore.rich_text import expand_db_html
+from wagtail.rich_text import expand_db_html
 
 
 class TinyMCERichTextArea(WidgetWithScript, widgets.Textarea):
@@ -68,7 +67,7 @@ class TinyMCERichTextArea(WidgetWithScript, widgets.Textarea):
             self.kwargs.update(kwargs)
 
     def get_panel(self):
-        return RichTextFieldPanel
+        return FieldPanel
 
     def render(self, name, value, attrs=None):
         if value is None:
@@ -101,6 +100,4 @@ class TinyMCERichTextArea(WidgetWithScript, widgets.Textarea):
 
     def value_from_datadict(self, data, files, name):
         original_value = super(TinyMCERichTextArea, self).value_from_datadict(data, files, name)
-        if original_value is None:
-            return None
-        return DbWhitelister.clean(original_value)
+        return original_value
